@@ -9,6 +9,9 @@ ElectionCommision::ElectionCommision()
 
 }
 int ElectionCommision::voterCount=0;
+int ElectionCommision::candidateCount=0;
+
+
 void ElectionCommision::registerNewVoter()
 {
 	Voter *voterObj;
@@ -21,12 +24,34 @@ void ElectionCommision::registerNewVoter()
         int assemblyId = 0;
         int stateId=0;
 		voterObj=new Voter();
-		voterObj->personalDetails.first=voterId;
-		voterObj->personalDetails.second=personObj;
+		voterObj->setVoterPersonPair(voterId,personObj);
 
 
 		states[stateId]->assemblyList[assemblyId]->voterList.insert({voterId, voterObj});
-		states[stateId]->assemblyList[assemblyId]->voterList[1]->personalDetails.second->displayPersonalDetails();
+		// states[stateId]->assemblyList[assemblyId]->voterList[1]->personalDetails.second->displayPersonalDetails();
+
+	}
+
+}
+
+void ElectionCommision::registerNewCandidate()
+{
+	Candidate *candidateObj;
+	Person *personObj=new Person();
+	personObj->acceptPersonDetails();
+    /* Generate Voter_ID and Assembly_ID if the candidate is eligible based on the address after verification*/
+	if(1)                                  
+	{
+		int candidateId = ++candidateCount;
+        int assemblyId = 0;
+        int stateId=0;
+		candidateObj=new Candidate();
+		candidateObj->setCandidatePersonPair(candidateId,personObj);
+
+
+		states[stateId]->assemblyList[assemblyId]->candidateList.insert({candidateId, candidateObj});
+		states[stateId]->assemblyList[assemblyId]->candidateVotes.insert({candidateId, 0});
+		states[stateId]->assemblyList[assemblyId]->candidateList[1]->getCandidatePersonPair().second->displayPersonalDetails();
 
 	}
 

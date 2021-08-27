@@ -7,21 +7,21 @@ using namespace std;
 
  
 class Voter;
-// class Candidate;
+class Candidate;
 
 class Assembly
 {
 
-	int assemblyNo; // was AssemblyNo
-	string assemblyName; // was AssemblyName
-	int population; // was Population
-	int eligibleVotersCount; // was EligibleVoters
-	// map<int,Person * > candidateList; //Map of CandidateId and PersonDetails.
+	int assemblyNo; 				// was AssemblyNo
+	string assemblyName; 			// was AssemblyName
+	int population; 				// was Population
+	int eligibleVotersCount; 		// was EligibleVoters
 	int currentCandidateId;
-	map<int,int> candidateVotes;
 	
 	public:
-	map<int,Voter *> voterList; //Map Of VoterId and PersonDetails
+	map<int,int> candidateVotes;	
+	map<int,Voter *> voterList; 			//Map Of VoterId and PersonDetails
+	map<int,Candidate * > candidateList; 	//Map of CandidateId and PersonDetails.
 		
 		Assembly(); 
 		Assembly(int,std::string,int,int,int,int); //AssemblyId,AssemblyName,Population,VoterCount will be given by State Class while initialising its Assemblylist in its instance.
@@ -36,7 +36,7 @@ class Assembly
 		// 	void findWinner();
 		void displayVoters();
 		// ~Assembly();
-	
+		void showCandidateVotes();	
 };
 
 /* Voter Class will have to call Election Commission class to verify and add voter.

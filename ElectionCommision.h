@@ -3,6 +3,7 @@
 #include"State.h"
 #include"Person.h"
 #include"Voter.h"
+#include"Candidate.h"
 #include"ElectionCommision.h"
 #include<bits/stdc++.h>
 using namespace std;
@@ -11,6 +12,7 @@ class ElectionCommision
 {
 
 	static int voterCount;
+	static int candidateCount;
 	private:	
 
 		// map<int, Election *> currentElections;     //map if ElectionId and Election *
@@ -22,6 +24,7 @@ class ElectionCommision
 		ElectionCommision();
 		// ~ElectionCommision();
 		void registerNewVoter();
+		void registerNewCandidate();
     	void addNewState(int,int );
     	void showStates();
 		void createElection();

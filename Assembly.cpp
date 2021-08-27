@@ -64,6 +64,16 @@ void Assembly::addVote(int candidateId){
 	this->candidateVotes[candidateId]++;
 }
 
+void Assembly::showCandidateVotes()
+{
+	cout<<"Candidates Id\tTotal Votes";
+	for(auto x:candidateVotes)
+	{
+
+		cout<<x.first<<"\t"<<x.second<<endl;
+	}
+}	
+
 // std::string Assembly::findWinner(){
 // 	pair<int,int>temp  = make_pair(0,0);
 // 	map<int,int>::iterator iter;

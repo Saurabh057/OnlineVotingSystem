@@ -8,16 +8,17 @@ class Voter
 {
 	int voterId;
 	int assemblyId;
-	// Person voter;
-	public:
 	pair<int,Person *> personalDetails;
+
+	public:
 		
 		Voter()
 		{
 			voterId = 0;
 			assemblyId = 0;
 		}
-		void regist(Assembly &);
-		int getVoterDetails();
+		pair<int,Person *> getVoterPersonPair();
+		void setVoterPersonPair(int ,Person *);
+		void displayVoterDetails();
 		void vote();
 };

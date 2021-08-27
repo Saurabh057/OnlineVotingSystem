@@ -22,9 +22,10 @@ int main(int argc, char const *argv[])
 	e.showStates();
 
 
+	
 
-
-	e.registerNewVoter();
+	// e.registerNewVoter();
+	e.registerNewCandidate();
 	// s[0].showAssemblyDetails();
 
 	return 0;

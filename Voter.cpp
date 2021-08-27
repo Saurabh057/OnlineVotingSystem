@@ -4,29 +4,31 @@
 // #include"Person.h"
 using namespace std;
 
-void Voter::regist(Assembly &assemblyIn)
+pair<int,Person *> Voter::getVoterPersonPair()
 {
-    
-    // voter.getPersonDetails();
-    // /* Generate Voter_ID and Assembly_ID if the candidate is eligible based on the address after verification*/
-    // if(1){
-    //     voterId = 12345;
-    //     assemblyId = 67890;
-    //     assemblyIn.addVoter(this);
-    //     //Assembly   
-    // }
-    // voter.displayPersonalDetails();
-    // assemblyIn.displayVoters();
-
+    return personalDetails;
 }
+void Voter::setVoterPersonPair(int voterid,Person *p)
+{
+    personalDetails.first=voterid;
+    personalDetails.second=p;
+}
+ 
 
 void Voter::vote()
 {
-    // int vote_num;
-    // /* Once Voter_ID gets*/
-    // cout << "Select a Candidate to Vote :" << endl;
+    int voteNum;
+    cout << "Select a Candidate to Vote :" << endl;
+    cout<<"Candidate Id.\tName OF Candidate\tParty Name"<<endl;
+    for(auto x:candidateList)
+    {
+        cout<<x.first<<x.second->personalDetails().second->getName();
+    }
+
     // //Display Candidate list
-    // cin >> vote_num;
+    cin >> voteNum;
+
+    candidateVotes[voteNum]++;
     // if (/*candidate_vote_count*/ == vote_num)
     // {
     //     candidate_vote_count++;
@@ -34,11 +36,10 @@ void Voter::vote()
 
 }
 
-int Voter::getVoterDetails()
+void Voter::displayVoterDetails()
 {
     cout<<"Voter ID:"<<voterId<<endl;
-    // voter.displayPersonalDetails();
-    return voterId;
+    personalDetails.second->displayPersonalDetails();
 }
 
 
