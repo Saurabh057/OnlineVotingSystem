@@ -1,15 +1,14 @@
-#include"State.h"
+#include "State.h"
 
-State::State(int stateID,int no)
+State::State(int stateID, int no)
 {
-	stateId=stateID;
-	Assembly * assemblyObj;
-	for(int i=0;i<no;i++)
+	stateId = stateID;
+	Assembly *assemblyObj;
+	for (int i = 0; i < no; i++)
 	{
-		assemblyObj= new Assembly(i,"Baramati",2001,1002,101,5);
+		assemblyObj = new Assembly(i, "Baramati", 2001, 1002, 101, 5);
 
-		assemblyList.insert({assemblyObj->getAssemblyNo(),assemblyObj});
-
+		assemblyList.insert({assemblyObj->getAssemblyNo(), assemblyObj});
 	}
 }
 
@@ -20,7 +19,11 @@ int State::getStateId()
 
 void State::setStateId(int p)
 {
-	stateId=p;
+	stateId = p;
+}
+string State::getStateName()
+{
+	return stateName;
 }
 
 // void State::addNewAssembly(Assembly &assemblyObj)
@@ -40,13 +43,11 @@ void State::setStateId(int p)
 // 		cout<<"Assembly NO already Exist"<<endl;
 // 	}
 
-
 // }
 void State::showAssemblyDetails()
 {
-	for(auto x:assemblyList)
+	for (auto x : assemblyList)
 	{
 		(x.second)->showAssemblyDetails();
 	}
 }
-
