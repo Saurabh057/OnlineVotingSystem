@@ -69,6 +69,7 @@ void ElectionCommision::registerNewCandidate(Person* person)
 		states[stateId]->assemblyList[asmId]->getCandidateList()[1]->displayCandidateDetails();
 
 	}
+	std::cout<<"{{{{{{{{     Candidate Registered       }}}}}}}"<<std::endl;
 }
 
 void ElectionCommision::createElection()
@@ -146,7 +147,7 @@ void ElectionCommision::showStates()
 
 bool ElectionCommision::verifyNewVoter( Person* personObj,pair<int,int>& pairStateIdAsmId){
 
-	/*map<std::string,int>mapStateNameStateID;
+	map<std::string,int>mapStateNameStateID;
 	mapStateNameStateID.insert({"Maharashtra",0});
 	mapStateNameStateID.insert({"Madhya Pradesh",1});
 	mapStateNameStateID.insert({"Kerala",2});
@@ -160,11 +161,11 @@ bool ElectionCommision::verifyNewVoter( Person* personObj,pair<int,int>& pairSta
 	assemblyNameAssemblyId.insert({"Baramati",2});
 
 	//mapCityAssembly.insert({"Pune",assemblyNameAssemblyId});
-	*/
+	
 	if(personObj->getAge() > 18){
 		pairStateIdAsmId.first = mapStateNameStateID["Maharashtra"];//states[personObj->getAddress().state];
-		//pairStateIdAsmId.second = assemblyNameAssemblyId["Kasba Peth"];//mapAsmCity[personObj->getAddress().city]["Kothrud"];
-		states[pairStateIdAsmId.first]->getAssemblyNameAssemblyId()["Kasba Peth"];
+		pairStateIdAsmId.second = assemblyNameAssemblyId["Kasba Peth"];//mapAsmCity[personObj->getAddress().city]["Kothrud"];
+		//states[pairStateIdAsmId.first]->getAssemblyNameAssemblyId()["Kasba Peth"];
 		return true;
 	}else{
 		return false;

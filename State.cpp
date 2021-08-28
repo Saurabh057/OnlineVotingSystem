@@ -26,10 +26,7 @@ void State::setStateId(int p)
 {
 	stateId = p;
 }
-string State::getStateName()
-{
-	return stateName;
-}
+
 
 std::string State::getStateName(){
 	return this->stateName;
