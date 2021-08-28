@@ -1,18 +1,18 @@
-#include"ElectionCommision.h"
+#include "ElectionCommision.h"
 
 #include<iostream>
 using namespace std;
-
 
 ElectionCommision::ElectionCommision()
 {
 
 }
+
 int ElectionCommision::voterCount=0;
 int ElectionCommision::candidateCount=0;
 
 
-void ElectionCommision::registerNewVoter()
+Voter* ElectionCommision::registerNewVoter()
 {
 	Voter *voterObj;
 	Person *personObj=new Person();
@@ -25,13 +25,14 @@ void ElectionCommision::registerNewVoter()
         int stateId=0;
 		voterObj=new Voter();
 		voterObj->setVoterPersonPair(voterId,personObj);
+		voterObj->setAssemblyId(assemblyId);
+		voterObj->setStateId(stateId);
 
-
-		states[stateId]->assemblyList[assemblyId]->voterList.insert({voterId, voterObj});
-		// states[stateId]->assemblyList[assemblyId]->voterList[1]->personalDetails.second->displayPersonalDetails();
+		states[stateId]->assemblyList[assemblyId]->setVoterList(voterId, voterObj);
+		states[stateId]->assemblyList[assemblyId]->getVoterList()[1]->displayVoterDetails();
 
 	}
-
+	return voterObj;
 }
 
 void ElectionCommision::registerNewCandidate()
@@ -47,30 +48,19 @@ void ElectionCommision::registerNewCandidate()
         int stateId=0;
 		candidateObj=new Candidate();
 		candidateObj->setCandidatePersonPair(candidateId,personObj);
-
-
-		states[stateId]->assemblyList[assemblyId]->candidateList.insert({candidateId, candidateObj});
-		states[stateId]->assemblyList[assemblyId]->candidateVotes.insert({candidateId, 0});
-		states[stateId]->assemblyList[assemblyId]->candidateList[1]->getCandidatePersonPair().second->displayPersonalDetails();
-
+		states[stateId]->assemblyList[assemblyId]->setCandidateList(candidateId, candidateObj);
+		states[stateId]->assemblyList[assemblyId]->setCandidateVotesList(candidateId, 0);
+		states[stateId]->assemblyList[assemblyId]->getCandidateList()[1]->displayCandidateDetails();
 	}
 
 }
+
 void ElectionCommision::addNewState(int i,int no)
-{
-// 	int num;
-// 	cout<<"\nEnter state Id\t";
-// 	cin>>num;
-// 	stateObj.setStateId(num);	
+{	
 	State * stateObj=new State(i,no);
     if (states.find(i) == states.end()) {
-
-
 		states.insert({stateObj->getStateId(),stateObj});
-    	
-
     	cout<<"Record Inserted"<<endl;
-
 	}
 	else
 	{
@@ -78,14 +68,12 @@ void ElectionCommision::addNewState(int i,int no)
 	}
 }
 
-
-
-
 void ElectionCommision::showStates()
 {
+	std::cout<<"**********STATES DETAILS************"<<endl;
 	for(auto x:states)
 	{
-		cout<<"State ID"<<x.first<<endl;
+		cout<<"State ID :"<<x.first<<endl;
 		(x.second)->showAssemblyDetails();
 	}
 }

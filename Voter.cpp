@@ -1,45 +1,56 @@
 #include<iostream>
 #include"Voter.h"
-// #include"Assembly.h"
-// #include"Person.h"
+#include "ElectionCommision.h"
 using namespace std;
+
+extern ElectionCommision e;
 
 pair<int,Person *> Voter::getVoterPersonPair()
 {
     return personalDetails;
 }
+
 void Voter::setVoterPersonPair(int voterid,Person *p)
 {
     personalDetails.first=voterid;
     personalDetails.second=p;
 }
  
-
 void Voter::vote()
 {
     int voteNum;
-    cout << "Select a Candidate to Vote :" << endl;
-    cout<<"Candidate Id.\tName OF Candidate\tParty Name"<<endl;
-    for(auto x:candidateList)
+    cout <<"\n********Select a Candidate to Vote :**********"<< endl;
+    cout<<"Candidate Id.\tName OF Candidate\tParty Name "<<endl;
+    for(auto x : e.states[stateId]->assemblyList[assemblyId]->getCandidateList())
     {
-        cout<<x.first<<x.second->personalDetails().second->getName();
+        cout<<x.first<<"\t\t"<<x.second->getCandidatePersonPair().second->getName()<<"\t\t\t"<<"Congress"<<endl;
     }
-
-    // //Display Candidate list
     cin >> voteNum;
+    std::cout<<"\n<<<<<<<<<<<<<<<<DUMMY>>>>>>>>>>>>>>"<<std::endl;
 
-    candidateVotes[voteNum]++;
-    // if (/*candidate_vote_count*/ == vote_num)
-    // {
-    //     candidate_vote_count++;
-    // }
-
+    (*(e.states[stateId]->assemblyList[assemblyId]->getCandidateVotesList()))[voteNum]++;
+    e.states[stateId]->assemblyList[assemblyId]->showCandidateVotes();
 }
 
 void Voter::displayVoterDetails()
 {
+    cout<<"\n**************Voter Details **************"<<endl;
     cout<<"Voter ID:"<<voterId<<endl;
     personalDetails.second->displayPersonalDetails();
 }
 
+void Voter::setStateId(int stateId){
+    this->stateId = stateId;
+}
 
+int Voter::getStateId(){
+    return stateId;
+}
+
+void Voter::setAssemblyId(int assemblyId){
+    this->assemblyId = assemblyId;
+}
+
+int Voter::getAssemblyId(){
+    return assemblyId;
+}

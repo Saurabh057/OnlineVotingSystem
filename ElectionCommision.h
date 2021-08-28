@@ -4,8 +4,8 @@
 #include"Person.h"
 #include"Voter.h"
 #include"Candidate.h"
-#include"ElectionCommision.h"
-#include<bits/stdc++.h>
+#include<map>
+
 using namespace std;
 
 class ElectionCommision
@@ -23,7 +23,7 @@ class ElectionCommision
 		
 		ElectionCommision();
 		// ~ElectionCommision();
-		void registerNewVoter();
+		Voter* registerNewVoter();
 		void registerNewCandidate();
     	void addNewState(int,int );
     	void showStates();

@@ -1,12 +1,15 @@
 #pragma once
+#include<iostream>
+#include<vector>
+#include "Candidate.h"
 
 class Election
 {
-
 	private:
 		int electionId;
 		int stateId;
-		// map<int,vector<Candidate>> candidateList; 			//map of assemblyId and Candidate 
+		int assemblyId;
+		map<int,vector<Candidate>>candidateList; 			//map of electionId and Candidate 
 
 	public:
 		Election();

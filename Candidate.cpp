@@ -18,6 +18,7 @@ void Candidate::setCandidatePersonPair(int candidateid,Person *p)
 
 void Candidate::displayCandidateDetails()
 {
+    cout<<"\n*************Candidate Details**************"<<endl;
     cout<<"Candidate ID:"<<candidateId<<endl;
     personalDetails.second->displayPersonalDetails();
 }

@@ -9,5 +9,4 @@ class AadharDetails
 	public:
 		AadharDetails();
 		bool verify(long);
-		// ~AadharDetails();
 };

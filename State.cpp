@@ -22,6 +22,7 @@ void State::setStateId(int p)
 {
 	stateId=p;
 }
+
 // void State::addNewAssembly(Assembly &assemblyObj)
 // {
 // 	int tempAssemblyNo;
@@ -43,17 +44,9 @@ void State::setStateId(int p)
 // }
 void State::showAssemblyDetails()
 {
-
 	for(auto x:assemblyList)
 	{
-		cout<<x.first<<endl;
 		(x.second)->showAssemblyDetails();
 	}
-	// for(auto x:assemblyList)
-	// {
-	// 	cout<<x.first;
-	// 	cout<<(x.second)->displayAssemblyDetails();
-	// }
-
 }
 

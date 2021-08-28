@@ -1,6 +1,6 @@
 #pragma once
 
-#include<bits/stdc++.h>
+#include<map>
 #include<vector>
 #include"Assembly.h"
 

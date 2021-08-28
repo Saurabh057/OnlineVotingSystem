@@ -8,6 +8,7 @@ class Voter
 {
 	int voterId;
 	int assemblyId;
+	int stateId;
 	pair<int,Person *> personalDetails;
 
 	public:
@@ -16,9 +17,14 @@ class Voter
 		{
 			voterId = 0;
 			assemblyId = 0;
+			stateId = 0;
 		}
 		pair<int,Person *> getVoterPersonPair();
 		void setVoterPersonPair(int ,Person *);
 		void displayVoterDetails();
+		void setStateId(int stateId);
+		int getStateId();
+		void setAssemblyId(int AssemblyId);
+		int getAssemblyId();
 		void vote();
 };

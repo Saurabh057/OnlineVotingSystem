@@ -6,8 +6,7 @@
 using namespace std;
 
 Person::Person(){
-		//id = -1; This  will be rounded of in the unsigned range(positive range) so gives a high value.
-		//strcpy("",name);
+	
 		name = "";
 		age = 0;
 		gender = 'N';
@@ -15,6 +14,7 @@ Person::Person(){
 }
 
 void Person::acceptPersonDetails(){
+	std::cout<<"\n$$$$ Enter Personal Details $$$$$"<<endl;
 	std::cout<<"Enter Name :"<<std::endl;
 	cin>>this->name;
 	std::cout<<"Enter Age :"<<std::endl;
@@ -44,7 +44,7 @@ void Person::acceptPersonDetails(){
 	// std::cout<<endl;
 	// std::cout << "Please Enter Qualification: " << std::endl;
 	// std::cin >> qualification;
-	cout<<"Details accepted";
+	cout<<"Details accepted"<<endl;
 }
 
 void Person::displayPersonalDetails(){
