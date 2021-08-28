@@ -1,20 +1,12 @@
-//#include<iostream>
 #include<list>
 #include<map>
-//#include<bits/stdc++.h>
 #include"Assembly.h"
-// #include"Voter.h"
+#include "ElectionCommision.h"
+
+
+extern ElectionCommision e;
 
 using namespace std;
-
-Assembly::Assembly()
-{
-
- 	assemblyNo=10;
-	assemblyName="Baramati";
-	population=2001;
-	eligibleVotersCount=1953;
-}
 
 Assembly::Assembly(int assemblyId,std::string assemblyName,int population,int voterCount,int currentCandidateId,int candidateCount){
 

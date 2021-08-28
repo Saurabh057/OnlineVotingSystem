@@ -16,10 +16,12 @@ int main(int argc, char const *argv[])
 
 	}
 	e.showStates();
-	Voter* voter = e.registerNewVoter();
-	e.registerNewCandidate();
+	Voter* voter1 = e.registerNewVoter();
+	Voter* voter2 = e.registerNewVoter();
+	voter1->registerAsCandidate();
 	// s[0].showAssemblyDetails();
-	voter->vote();
+	voter1->vote();
+	voter2->vote();
 
 	return 0;
 }

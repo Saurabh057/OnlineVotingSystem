@@ -14,7 +14,7 @@ class ElectionCommision
 	static int voterCount;
 	static int candidateCount;
 	private:	
-
+		map<std::string,int>mapStateNameStateID;
 		// map<int, Election *> currentElections;     //map if ElectionId and Election *
 
 		// map<int ,Election *> electionStatus;		//map of electionId and Election Status
@@ -24,11 +24,15 @@ class ElectionCommision
 		ElectionCommision();
 		// ~ElectionCommision();
 		Voter* registerNewVoter();
-		void registerNewCandidate();
+		bool verifyNewVoter( Person* personObj,pair<int,int>& pairStateIdAsmId);
+		void registerNewCandidate(Person* person);
     	void addNewState(int,int );
     	void showStates();
 		void createElection();
 		void endElection();
-		void verifyCandidate();
+		map<std::string,int> getMapStateNameStateId();
+		void setMapStateNameStateId(std::string,int stateId);
+		void verifyNewCandidate(Person* person);
+
 
 };	

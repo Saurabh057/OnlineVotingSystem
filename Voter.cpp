@@ -54,3 +54,7 @@ void Voter::setAssemblyId(int assemblyId){
 int Voter::getAssemblyId(){
     return assemblyId;
 }
+
+void Voter::registerAsCandidate(){
+    e.registerNewCandidate(this->personalDetails.second);
+}

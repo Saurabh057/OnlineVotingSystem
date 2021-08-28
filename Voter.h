@@ -25,6 +25,7 @@ class Voter
 		void setStateId(int stateId);
 		int getStateId();
 		void setAssemblyId(int AssemblyId);
+		void registerAsCandidate();
 		int getAssemblyId();
 		void vote();
 };

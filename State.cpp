@@ -1,15 +1,19 @@
 #include"State.h"
+#include "ElectionCommision.h"
+
+extern ElectionCommision e;
 
 State::State(int stateID,int no)
 {
 	stateId=stateID;
+	stateName = "Maharashtra";
+	e.getMapStateNameStateId().insert({stateName,stateID});
 	Assembly * assemblyObj;
 	for(int i=0;i<no;i++)
 	{
 		assemblyObj= new Assembly(i,"Baramati",2001,1002,101,5);
-
 		assemblyList.insert({assemblyObj->getAssemblyNo(),assemblyObj});
-
+		//e.getMapStateNameStateId()[stateName]->assemblyNameAssemblyId[stateObj->getName()] = i;
 	}
 }
 
@@ -21,6 +25,10 @@ int State::getStateId()
 void State::setStateId(int p)
 {
 	stateId=p;
+}
+
+std::string State::getStateName(){
+	return this->stateName;
 }
 
 // void State::addNewAssembly(Assembly &assemblyObj)
@@ -49,4 +57,11 @@ void State::showAssemblyDetails()
 		(x.second)->showAssemblyDetails();
 	}
 }
+map<std::string,int> State::getAssemblyNameAssemblyId(){
+
+}
+void State::setAssmblyNameAssemblyId(std::string,int){
+
+}
+
 
