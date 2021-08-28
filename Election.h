@@ -1,20 +1,23 @@
 #pragma once
-#include<iostream>
-#include<vector>
-#include "Candidate.h"
-
+#include <iostream>
+#include <vector>
+using namespace std;
 class Election
 {
-	private:
-		int electionId;
-		int stateId;
-		int assemblyId;
-		map<int,vector<Candidate>>candidateList; 			//map of electionId and Candidate 
+private:
+	int electionId;
+	string electionName;
+	bool electionStatus;
+	vector<int> stateIds;
 
-	public:
-		Election();
-		void displayResult();
-		void showElectionDetails();
+public:
+	Election();
+	void acceptElectionDetails();
+	void setElectionId(int);
+	int getElectionId();
+	string getElectionName();
+	void displayResult();
+	vector<int> getstateIds();
+	void showElectionDetails();
 	// ~Election();
-	
 };

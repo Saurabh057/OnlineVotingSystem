@@ -3,7 +3,7 @@
 
 extern ElectionCommision e;
 
-State::State(int stateID,int no)
+State::State(int stateID, int no)
 {
 	stateId=stateID;
 	stateName = "Maharashtra";
@@ -24,7 +24,11 @@ int State::getStateId()
 
 void State::setStateId(int p)
 {
-	stateId=p;
+	stateId = p;
+}
+string State::getStateName()
+{
+	return stateName;
 }
 
 std::string State::getStateName(){
@@ -48,11 +52,10 @@ std::string State::getStateName(){
 // 		cout<<"Assembly NO already Exist"<<endl;
 // 	}
 
-
 // }
 void State::showAssemblyDetails()
 {
-	for(auto x:assemblyList)
+	for (auto x : assemblyList)
 	{
 		(x.second)->showAssemblyDetails();
 	}
@@ -63,5 +66,4 @@ map<std::string,int> State::getAssemblyNameAssemblyId(){
 void State::setAssmblyNameAssemblyId(std::string,int){
 
 }
-
 

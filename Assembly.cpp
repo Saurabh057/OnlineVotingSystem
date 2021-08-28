@@ -3,19 +3,16 @@
 #include"Assembly.h"
 #include "ElectionCommision.h"
 
-
 extern ElectionCommision e;
 
-using namespace std;
-
-Assembly::Assembly(int assemblyId,std::string assemblyName,int population,int voterCount,int currentCandidateId,int candidateCount){
+Assembly::Assembly(int assemblyId, std::string assemblyName, int population, int voterCount, int currentCandidateId, int candidateCount)
+{
 
 	this->assemblyNo = assemblyId;
 	this->assemblyName = assemblyName;
 	this->population = population;
 	this->eligibleVotersCount = voterCount;
 	this->currentCandidateId = currentCandidateId;
-
 }
 int Assembly::getAssemblyNo()
 {
@@ -24,7 +21,7 @@ int Assembly::getAssemblyNo()
 
 string Assembly::getAssemblyName()
 {
-		return assemblyName;
+	return assemblyName;
 }
 int Assembly::getPoulation()
 {
@@ -35,79 +32,93 @@ int Assembly::getEligibleVoters()
 	return eligibleVotersCount;
 }
 
-void Assembly::displayVoters(){
-	
-	for(int i=0 ;i<getEligibleVoters();++i){
+void Assembly::displayVoters()
+{
+
+	for (int i = 0; i < getEligibleVoters(); ++i)
+	{
 		//std::cout<<voterList[i]->getPersonDetails(); // Person Class Should have getPersonDetails()
 	}
 }
 
-void Assembly::addVote(int candidateId){
+void Assembly::addVote(int candidateId)
+{
 	this->candidateVotes[candidateId]++;
 }
 
 void Assembly::showCandidateVotes()
 {
-	cout<<"Candidates Id\tTotal Votes"<<endl;
-	for(auto x:candidateVotes)
+	cout << "Candidates Id\tTotal Votes" << endl;
+	for (auto x : candidateVotes)
 	{
-		cout<<x.first<<"\t\t"<<x.second<<endl;
+		cout << x.first << "\t\t" << x.second << endl;
 	}
-}	
+}
 
 /* 	ElectionClass will contain display Election results.
 	It will call all assemblies findWinner();
 	findWinner() will return winner's candidate ids.
 	ElectionClass can store these candidate ids and then print the candidate details over there */
 
-int Assembly::findWinner(){
- 	pair<int,int>temp  = make_pair(0,0);
- 	map<int,int>::iterator iter;
- 	for(iter = candidateVotes.begin();iter != candidateVotes.end();iter++){
- 		if(iter->second > temp.second){
- 			temp = make_pair(iter->first,iter->second);
- 		}
- 	}
- 	if(temp.first != 0){
- 		this->currentCandidateId = temp.first;
- 	}
- 	return currentCandidateId;
+int Assembly::findWinner()
+{
+	pair<int, int> temp = make_pair(0, 0);
+	map<int, int>::iterator iter;
+	for (iter = candidateVotes.begin(); iter != candidateVotes.end(); iter++)
+	{
+		if (iter->second > temp.second)
+		{
+			temp = make_pair(iter->first, iter->second);
+		}
+	}
+	if (temp.first != 0)
+	{
+		this->currentCandidateId = temp.first;
+	}
+	return currentCandidateId;
 }
 
 void Assembly::showAssemblyDetails()
 {
-	cout<<"\nBelow are Assembly Details\n\t";
+	cout << "\nBelow are Assembly Details\n\t";
 
-	cout<<"\n\tAssembly Name:\t\t\t\t"<<getAssemblyName();
-	cout<<"\n\tAssembly Population:\t\t\t"<<getPoulation();
-	cout<<"\n\tNumber of Eiligible Voters:\t\t"<<getEligibleVoters();
-	for(int i=0;i<getEligibleVoters();i++){
+	cout << "\n\tAssembly Name:\t\t\t\t" << getAssemblyName();
+	cout << "\n\tAssembly Population:\t\t\t" << getPoulation();
+	cout << "\n\tNumber of Eiligible Voters:\t\t" << getEligibleVoters();
+	for (int i = 0; i < getEligibleVoters(); i++)
+	{
 		//std::cout<<voterList[i]->getPersonDetails()<<std::endl; // Person Class Should have getPersonDetails()
 	}
-	cout<<endl;
+	cout << endl;
 }
 
-map<int,int>* Assembly::getCandidateVotesList(){
+map<int, int> *Assembly::getCandidateVotesList()
+{
 
 	return &candidateVotes;
 }
 
-map<int,Voter*> Assembly::getVoterList(){
+map<int, Voter *> Assembly::getVoterList()
+{
 	return voterList;
 }
 
-map<int,Candidate*> Assembly::getCandidateList(){
+map<int, Candidate *> Assembly::getCandidateList()
+{
 	return candidateList;
 }
 
-void Assembly::setCandidateList(int candidateId,Candidate* candidateObj){
+void Assembly::setCandidateList(int candidateId, Candidate *candidateObj)
+{
 	candidateList[candidateId] = candidateObj;
 }
 
-void Assembly::setVoterList(int voterId,Voter* voterObj){
+void Assembly::setVoterList(int voterId, Voter *voterObj)
+{
 	voterList[voterId] = voterObj;
 }
 
-void Assembly::setCandidateVotesList(int candidateId,int votes ){
+void Assembly::setCandidateVotesList(int candidateId, int votes)
+{
 	candidateVotes[candidateId] = votes;
 }

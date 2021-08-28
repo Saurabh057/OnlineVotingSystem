@@ -1,8 +1,8 @@
 #pragma once
 
-#include<map>
-#include<vector>
-#include"Assembly.h"
+#include <map>
+#include <vector>
+#include "Assembly.h"
 
 class State{
     private:
@@ -21,5 +21,4 @@ class State{
         void setAssmblyNameAssemblyId(std::string,int);
         void showAssemblyDetails();
         void showAssemblyVoterList();
-
 };
