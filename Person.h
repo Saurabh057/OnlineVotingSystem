@@ -28,6 +28,11 @@ typedef struct Address
 
 }ADDRESS; //Remove the typedef *
 
+typedef struct Contact{
+	unsigned int phoneNumber;
+	std::string email;
+}CONTACT;
+
 class Person 
 {
 	private:
@@ -40,6 +45,7 @@ class Person
 		std::string qualification; 
 		long aadharNo;
 		int assemblyId;
+		CONTACT contacts;
 
 	public:
 		Person();

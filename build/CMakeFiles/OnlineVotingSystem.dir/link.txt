@@ -1,0 +1,3 @@
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f CMakeFiles\OnlineVotingSystem.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\OnlineVotingSystem.dir/objects.a @CMakeFiles\OnlineVotingSystem.dir\objects1.rsp
+C:\MinGW\bin\mingw32-g++.exe -g -Wl,--whole-archive CMakeFiles\OnlineVotingSystem.dir/objects.a -Wl,--no-whole-archive -o OnlineVotingSystem.exe -Wl,--out-implib,libOnlineVotingSystem.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\OnlineVotingSystem.dir\linklibs.rsp

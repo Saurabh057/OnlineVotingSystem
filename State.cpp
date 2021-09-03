@@ -8,7 +8,7 @@ State::State(int stateID, int no)
 	stateId=stateID;
 	stateName = "Maharashtra";
 	e.getMapStateNameStateId().insert({stateName,stateID});
-	Assembly * assemblyObj;
+	Assembly * assemblyObj; 
 	for(int i=0;i<no;i++)
 	{
 		assemblyObj= new Assembly(i,"Baramati",2001,1002,101,5);

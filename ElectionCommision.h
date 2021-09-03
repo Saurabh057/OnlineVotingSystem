@@ -29,7 +29,7 @@ class ElectionCommision
 		// ~ElectionCommision();
 		Voter* registerNewVoter();
 		bool verifyNewVoter( Person* personObj,pair<int,int>& pairStateIdAsmId);
-		void registerNewCandidate(Person* person);
+		void registerNewCandidate(Person* person); 
     	void addNewState(int,int );
     	void showStates();
 		void createElection();
@@ -38,6 +38,5 @@ class ElectionCommision
 		void setMapStateNameStateId(std::string,int stateId);
 		void verifyNewCandidate(Person* person);
 		void showOngoingElectionDetails();
-
 
 };

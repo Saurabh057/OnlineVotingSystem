@@ -18,10 +18,11 @@ int main(int argc, char const *argv[])
 
 	Voter* voter1 = e.registerNewVoter();
 	Voter* voter2 = e.registerNewVoter();
-	voter1->registerAsCandidate();
 
 	e.createElection();
 	e.showOngoingElectionDetails();
+	voter1->registerAsCandidate();
+
 
 	// s[0].showAssemblyDetails();
 	voter1->vote();

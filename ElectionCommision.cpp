@@ -21,7 +21,7 @@ Voter *ElectionCommision::registerNewVoter()
     /* Generate Voter_ID and Assembly_ID if the candidate is eligible based on the address after verification*/
 	if(verifyNewVoter(personObj,pairStateIdAsmId))                                  
 	{
-		int voterId = ++voterCount;
+		int voterId = ++voterCount; 
 		voterObj=new Voter();
 		int stateId = pairStateIdAsmId.first;
 		int assemblyId = pairStateIdAsmId.second;
@@ -42,15 +42,28 @@ void ElectionCommision::registerNewCandidate(Person* person)
 {
 	Candidate *candidateObj;
 
-	int stateId,asmId;
+	int stateId,asmId,inputElectionId;
 
-	std::cout<<"\nState List.Enter State You Want To Contest :"<<endl;
-	std::cout<<"StateId  "<<"State Name"<<endl;
-	for(auto x:states){
-		std::cout<<x.first<<"\t"<<x.second->getStateName()<<endl;
+	cout << "\n****************Here is List of All Ongoing Elections***************" << endl;
+	cout << "\nElection Id\t\tElection Name" << endl;
+	for (auto x : electionsList)
+	{
+		cout << x.first << "\t\t" << x.second->getElectionName() << endl;
 	}
-	cout<<"INPUT :";
-	cin>>stateId;
+
+	cout << "Enter Election Id of Which You want to contest the Election" << endl;
+	cin >> inputElectionId;
+
+	cout << "\nHere is List of States in which this Election is going on" << endl;
+	cout << "State Id \t\t State Name" << endl;
+	for (auto x : electionsList[inputElectionId]->getstateIds())
+	{
+		cout << x << "\t\t" << states[x]->getStateName() << endl;
+	}
+
+	cout << "\nEnter State Id of which you want to see Details" << endl;
+	cin >> stateId;
+
 	std::cout<<"\nAssembly List. Enter Assembly Id In Which You Want To Contest :"<<endl;
 	std::cout<<"AssemblyId "<<"Assembly Name"<<endl;
 	for(auto x:states[stateId]->assemblyList){
@@ -63,11 +76,17 @@ void ElectionCommision::registerNewCandidate(Person* person)
 	{
 		int candidateId = ++candidateCount;
 		candidateObj=new Candidate();
-		candidateObj->setCandidatePersonPair(candidateId,person);
-		states[stateId]->assemblyList[asmId]->setCandidateList(candidateId, candidateObj);
-		states[stateId]->assemblyList[asmId]->setCandidateVotesList(candidateId, 0);
-		states[stateId]->assemblyList[asmId]->getCandidateList()[1]->displayCandidateDetails();
-
+		if(candidateObj->setAssemblyId(asmId)){
+			candidateObj->setCandidatePersonPair(candidateId,person);
+			states[stateId]->assemblyList[asmId]->setCandidateList(candidateId, candidateObj);
+			states[stateId]->assemblyList[asmId]->setCandidateVotesList(candidateId, 0);
+			states[stateId]->assemblyList[asmId]->getCandidateList()[1]->displayCandidateDetails();
+			candidateObj->setStateId(stateId);
+			candidateObj->setElectionId(inputElectionId);
+		}else{
+			std::cout<<"Cannot contest in more than 2 assemblies"<<std::endl;
+			delete candidateObj;
+		}
 	}
 	std::cout<<"{{{{{{{{     Candidate Registered       }}}}}}}"<<std::endl;
 }

@@ -10,7 +10,7 @@ class State{
         std::string stateName;
         map<std::string,int> assemblyNameAssemblyId;
     public :
-        map<int,Assembly *> assemblyList;       //map of AssemblyId and Assembly *
+        map<int,Assembly *> assemblyList;       //make it private and add getter setter */
         
     	State(int, int);
     	int getStateId();

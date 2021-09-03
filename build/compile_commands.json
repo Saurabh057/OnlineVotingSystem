@@ -1,0 +1,42 @@
+[
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\main.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\main.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/main.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\Person.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\Person.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/Person.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\Voter.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\Voter.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/Voter.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\Candidate.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\Candidate.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/Candidate.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\Assembly.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\Assembly.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/Assembly.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\State.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\State.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/State.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\Election.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\Election.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/Election.cpp"
+},
+{
+  "directory": "G:/Persistent Training/Ruby/OnlineVotingSystem/build",
+  "command": "C:\\MinGW\\bin\\mingw32-g++.exe   -g -o CMakeFiles\\OnlineVotingSystem.dir\\ElectionCommision.cpp.obj -c \"G:\\Persistent Training\\Ruby\\OnlineVotingSystem\\ElectionCommision.cpp\"",
+  "file": "G:/Persistent Training/Ruby/OnlineVotingSystem/ElectionCommision.cpp"
+}
+]
