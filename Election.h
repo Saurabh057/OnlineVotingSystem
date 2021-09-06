@@ -12,6 +12,7 @@ private:
 
 public:
 	Election();
+	Election(int, string);
 	void acceptElectionDetails();
 	void setElectionId(int);
 	int getElectionId();

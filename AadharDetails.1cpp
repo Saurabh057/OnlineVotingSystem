@@ -1,0 +1,26 @@
+//file contains aadhar functions
+#include<iostream>
+#include "AadharDetails.h"
+
+AadharDetails::AadharDetails()
+{
+	aadharDetailsList[1] = new Person(1,"Soham", 23,'M', "SWE", "17,02,1999", "1,road,temple,pune,mah,411021", 1);
+	aadharDetailsList[2] = new Person(2,"Saurabh", 24,'M', "SWE", "172,05,1998", "2,road,temple,pune,mah,411021", 2);
+	/*aadharDetailsList[3] = new Person("Rahul",'M', 23, "4,06,1999", std::string(1,"road", "temple", "pune","mah",411021), "SWE", 3, 2);
+	aadharDetailsList[4] = new Person("Shweta",'F', 25, "11,04,1996", std::string(1,"road", "temple", "pune","mah",411021), "SWE", 4, 1);
+	aadharDetailsList[5] = new Person("Renuka",'F', 24, "17,02,1999", std::string(1,"road", "temple", "pune","mah",411021), "SWE", 5, 4);
+	aadharDetailsList[6] = new Person("Saurabh",'M', 22, "17,02,1999", std::string(1,"road", "temple", "pune","mah",411021), "SWE", 6, 1);
+*/
+}
+
+bool AadharDetails::verify(long id)
+{
+    if(aadharDetailsList.find(id) != aadharDetailsList.end())
+    {
+        Person* p = aadharDetailsList.find(id)->second;
+        p->setAadharId(id);
+        return 1;
+    }
+    return 0;
+}
+

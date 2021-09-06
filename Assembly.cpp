@@ -1,18 +1,106 @@
-#include<list>
-#include<map>
-#include"Assembly.h"
+//file contains assembly functions
+#include <list>
+#include <map>
+#include "Assembly.h"
 #include "ElectionCommision.h"
-
+#include <sqlite3.h>
+#include <sstream>
 extern ElectionCommision e;
+int voterCount = 1;
+int candidateCount = 1;
+int personCount = 1;
+extern sqlite3 *db;
 
-Assembly::Assembly(int assemblyId, std::string assemblyName, int population, int voterCount, int currentCandidateId, int candidateCount)
+Assembly::Assembly(int assemblyId, std::string assemblyName, int population, int voterCount, int currentCandidateId, int stateId)
 {
+	char *zErrMsg = 0;
+	int rc;
+	const char *sql;
+	const char *data = "Callback function called";
+	int callback(void *data, int argc, char **argv, char **azColName);
+
+	stringstream ss, ss2;
+	string query, query2;
+
+	sqlite3_stmt *stmt;
+
+	ss << "select * from candidate where stateid = " << stateId << "& assemblyid = " << assemblyId;
+	query = ss.str();
+	sql = query.c_str();
+
+	rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		// fprintf("error: ", sqlite3_errmsg(sqlite3->db));
+	}
+	cout << "IN assembly before Candidate" << endl;
+	Candidate *candidateObj;
+	while ((rc = sqlite3_step(stmt)) == SQLITE_ROW)
+	{
+		int candidateid = sqlite3_column_int(stmt, 0);
+		string username = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)));
+		string password = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)));
+		int assemblyid = sqlite3_column_int(stmt, 3);
+		int stateid = sqlite3_column_int(stmt, 4);
+		int personid = sqlite3_column_int(stmt, 5);
+		int electionid = sqlite3_column_int(stmt, 6);
+		string partyname = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 7)));
+		int votes = sqlite3_column_int(stmt, 8);
+
+		candidateObj = new Candidate(candidateid, assemblyid, stateid, electionid, personid, partyname, username, password);
+		cout << "Candiate List Updated\t" << endl;
+
+		candidateList.insert({candidateObj->getCandidateId(), candidateObj});
+		candidateVotes.insert({candidateObj->getCandidateId(), votes});
+		//e.getMapStateNameStateId()[stateName]->assemblyNameAssemblyId[stateObj->getName()] = i;
+	}
+	if (rc != SQLITE_DONE)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		// fprintf("error: ", sqlite3_errmsg(db));
+	}
+	sqlite3_finalize(stmt);
+
+	ss2 << "select * from voter where stateid = " << stateId << "& assemblyid = " << assemblyId;
+
+	query = ss2.str();
+	sql = query.c_str();
+
+	rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		// fprintf("error: ", sqlite3_errmsg(sqlite3->db));
+	}
+	Voter *voterObj;
+
+	while ((rc = sqlite3_step(stmt)) == SQLITE_ROW)
+	{
+		int voterid = sqlite3_column_int(stmt, 0);
+		string username = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)));
+		string password = std::string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)));
+		int assemblyid = sqlite3_column_int(stmt, 3);
+		int stateid = sqlite3_column_int(stmt, 4);
+		int personid = sqlite3_column_int(stmt, 5);
+		int verified = sqlite3_column_int(stmt, 6);
+
+		cout << "Creating voter object" << voterid << "assembly id and state id" << stateId << assemblyid << endl;
+		voterObj = new Voter(voterid, assemblyid, stateid, personid, username, password, verified);
+		voterList.insert({voterObj->getVoterId(), voterObj});
+		//e.getMapStateNameStateId()[stateName]->assemblyNameAssemblyId[stateObj->getName()] = i;
+	}
+
+	sqlite3_finalize(stmt);
 
 	this->assemblyNo = assemblyId;
 	this->assemblyName = assemblyName;
 	this->population = population;
 	this->eligibleVotersCount = voterCount;
-	this->currentCandidateId = currentCandidateId;
+	//this->currentCandidateId = currentCandidateId;
+	this->stateId = stateId;
 }
 int Assembly::getAssemblyNo()
 {

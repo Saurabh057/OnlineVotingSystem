@@ -4,22 +4,23 @@
 #include<vector>
 #include<map>
 
-using namespace std; 
+using namespace std;
 class Voter;
 class Candidate;
 
 class Assembly
 {
-	int assemblyNo; 			
-	string assemblyName; 			
-	int population; 			
-	int eligibleVotersCount; 		
+	int assemblyNo;
+	string assemblyName;
+	int population;
+	int eligibleVotersCount;
 	int currentCandidateId;
+	int stateId;
 	map<int,int> candidateVotes;	 		// map<CandidateId,CandidateVotes>
 	map<int,Voter *> voterList; 			//Map Of VoterId and PersonDetails
 	map<int,Candidate * > candidateList; 	//Map of CandidateId and PersonDetails.
-	public:		
-		Assembly(); 
+	public:
+		Assembly();
 		Assembly(int,std::string,int,int,int,int); //AssemblyId,AssemblyName,Population,VoterCount will be given by State Class while initialising its Assemblylist in its instance.
 		int getAssemblyNo();
 		string getAssemblyName();
@@ -27,9 +28,9 @@ class Assembly
 		int getEligibleVoters();
 		void showAssemblyDetails();
 		void addVote(int candidateId);
-		int findWinner(); 
+		int findWinner();
 		void displayVoters();
-		void showCandidateVotes();	
+		void showCandidateVotes();
 		map<int,int>* getCandidateVotesList();
 		map<int,Voter*> getVoterList();
 		map<int,Candidate*> getCandidateList();

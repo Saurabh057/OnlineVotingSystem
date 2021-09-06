@@ -1,68 +1,102 @@
-#include<iostream>
-#include<string.h>
-#include"Person.h"
+//file contains person details
+#include <iostream>
+#include <string.h>
+#include "Person.h"
 #include "AadharDetails.h"
-
+#include <sqlite3.h>
+#include <sstream>
 using namespace std;
 
-Person::Person(){
-	
-		name = "";
-		age = 0;
-		gender = 'N';
-		qualification = "";
+extern sqlite3 *db;
+extern int personCount;
+int callback(void *data, int argc, char **argv, char **azColName);
+
+Person ::Person() {}
+Person::Person(int i, std::string n, int a, string g, string qual, string db, string addr, long adharno)
+{
+
+	id = i;
+	name = n;
+	age = a;
+	gender = g;
+	qualification = qual;
+	ptrDb = db;
+	ptrAddr = addr;
+	aadharNo = adharno;
+	personCount = i + 1;
 }
 
-void Person::acceptPersonDetails(){
-	std::cout<<"\n$$$$ Enter Personal Details $$$$$"<<endl;
-	std::cout<<"Enter Name :"<<std::endl;
-	cin>>this->name;
-	std::cout<<"Enter Age :"<<std::endl;
-	std::cin>>this->age;
+int Person ::getPersonId()
+{
+	return id;
+}
+
+bool Person::acceptPersonDetails()
+{
+	std::cout << "\n$$$$ Enter Personal Details $$$$$" << endl;
+	this->id = personCount++;
+	std::cout << "Enter Name :" << std::endl;
+	cin >> this->name;
+	std::cout << "Enter Age :" << std::endl;
+	std::cin >> this->age;
 	std::cout << "Enter Gender: " << std::endl;
 	std::cin >> this->gender;
-	// std::cout << "Enter Date Of Birth(DD/MM/YYYY): " << std::endl;
-	// std::cin >> ptrDb.day>>ptrDb.month>>ptrDb.year;
-	// std::cout << "Enter Full Address: " << std::endl;
-	// std::cout<<"House No: ";
-	// std::cin >> ptrAddress.houseNo;
-	// std::cout<<endl;
-	// std::cout<<"Street: ";
-	// std::cin >> ptrAddress.street;
-	// std::cout<<endl;
-	// std::cout<<"Landmark: ";
-	// std::cin >> ptrAddress.landmark; 
-	// std::cout<<endl;
-	// std::cout<<"City: ";
-	// std::cin >> ptrAddress.city;
-	// std::cout<<endl;	
-	// std::cout<<"State: ";
-	// std::cin >> ptrAddress.state;
-	// std::cout<<endl;
-	// std::cout<<"PinCode: ";
-	// std::cin >> ptrAddress.pinCode;
-	// std::cout<<endl;
-	// std::cout << "Please Enter Qualification: " << std::endl;
-	// std::cin >> qualification;
-	cout<<"Details accepted"<<endl;
+	std::cout << "Enter Date Of Birth(DD/MM/YYYY): " << std::endl;
+	std::cin >> this->ptrDb;
+	std::cout << "Enter Full Address: " << std::endl;
+	cin >> this->ptrAddr;
+	std::cout << "Please Enter Qualification: " << std::endl;
+	std::cin >> qualification;
+	std::cout << "Please Enter AadharId: " << std::endl;
+	std::cin >> this->aadharNo;
+
+	cout << "Details accepted" << endl;
+
+	if (age < 18)
+		return false;
+
+	char *zErrMsg = 0;
+	int rc;
+	const char *sql;
+	const char *data = "Callback function called";
+	stringstream ss, ss2;
+	string query, query2;
+
+	ss << "INSERT INTO person "
+		"VALUES (null,' "
+	   << name << "','" << gender << "','" << age << "','" << ptrDb << "','" << ptrAddr << "','" << qualification << "')";
+	query = ss.str();
+	sql = query.c_str();
+
+	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else
+	{
+		fprintf(stdout, "Person Record inserted successfully\n");
+	}
+	return true;
 }
 
-void Person::displayPersonalDetails(){
-	DOB datePtr;
-	Address addrPtr;
-	std::cout<<"Name :"<<getName()<<std::endl;
+void Person::displayPersonalDetails()
+{
+	std::string datePtr;
+	std::string addrPtr;
+	std::cout << "Name :" << getName() << std::endl;
 	// std::cout<<"ID :"<<getId()<<std::endl;
-	std::cout<<"Aadhar :"<<getAadharId()<<std::endl;
-	std::cout<<"Age : "<<getAge()<<std::endl;
-	std::cout<<"Gender : "<<getGender()<<std::endl;
+	std::cout << "Aadhar :" << getAadharId() << std::endl;
+	std::cout << "Age : " << getAge() << std::endl;
+	std::cout << "Gender : " << getGender() << std::endl;
 	datePtr = getDb();
-	addrPtr = getAddress();
-	std::cout << "Date of Birth : " << datePtr.day << "/" << datePtr.month << "/" << datePtr.year << std::endl;
-	std::cout << "Address : " << addrPtr.houseNo << "," << addrPtr.street << "," << addrPtr.landmark << "," << addrPtr.city << "," << addrPtr.state << "," << addrPtr.pinCode << std::endl;
+	addrPtr = getAddr();
+	std::cout << "Date of Birth : " << datePtr << std::endl;
+	std::cout << "std::string : " << addrPtr << std::endl;
 	std::cout << "Qualification: " << this->getQualification() << std::endl;
 	std::cout << "Aadhar ID: " << this->getAadharId() << std::endl;
-	std::cout << "Assembly ID: " << this->getAssemblyId() << std::endl;
-
 }
 
 /*int Person::getId(){
@@ -73,87 +107,67 @@ void Person::setId(int id){
 	this->id = id;
 }*/
 
-std::string Person::getName(){
+std::string Person::getName()
+{
 	return name;
 }
 
-void Person::setName(std::string n){
-	name=n;
+void Person::setName(std::string n)
+{
+	name = n;
 }
 
-int Person::getAge(){
+int Person::getAge()
+{
 	return age;
 }
 
-void Person::setAge(int a){
+void Person::setAge(int a)
+{
 	age = a;
 }
 
-char Person::getGender()
+std::string Person::getGender()
 {
 	return gender;
 }
 
-void Person::setGender(char g)
+void Person::setGender(std::string g)
 {
 	gender = g;
 }
 
-DOB Person::getDb(){
+std::string Person::getDb()
+{
 	return ptrDb;
 }
 
-void Person::setDb(DOB db){
+void Person::setDb(std::string db)
+{
 	ptrDb = db; //Need to overload '=' operator here
 }
 
-DOB Person :: operator =  (DOB dateOfBirth)
+void Person::setAddr(std::string addr)
 {
-	DOB date;
-	date.day = dateOfBirth.day;
-	date.month = dateOfBirth.month;
-	date.month = dateOfBirth.year;
-	return date;
+	ptrAddr = addr; //Need to Overload '=' operator
 }
 
-ADDRESS Person :: operator = (Address addr)
+std::string Person::getAddr()
 {
-	Address address;
-	address.houseNo = addr.houseNo;
-	address.street = addr.street;
-	address.landmark = addr.landmark;
-	address.city = addr.city;
-	address.state = addr.state;
-	address.pinCode = addr.pinCode;
-	return address;
-
+	return ptrAddr;
 }
 
-void Person::setAddress(ADDRESS addr){
-	ptrAddress = addr; //Need to Overload '=' operator
-}
-
-ADDRESS Person::getAddress(){
-	return ptrAddress;
-}
-
-int Person::getAssemblyId(){
-	return assemblyId;
-}
-
-void Person::setAssemblyId(int Id){
-	assemblyId = Id;
-}
-
-std::string Person::getQualification(){
+std::string Person::getQualification()
+{
 	return qualification;
 }
 
-void Person::setQualification(std::string qual){
+void Person::setQualification(std::string qual)
+{
 	qualification = qual;
 }
 
-void Person :: setAadharId(long id)
+void Person ::setAadharId(long id)
 {
 	aadharNo = id;
 }
@@ -163,10 +177,9 @@ long Person::getAadharId()
 	return aadharNo;
 }
 
-
 // int main(){
-// 	DOB date(1, 10, 2014);
-// 	Address addr(1, "road", "temple", "city", "state", 411021);
+// 	std::string date(1, 10, 2014);
+// 	std::string addr(1, "road", "temple", "city", "state", 411021);
 // 	Person p1;
 // 	AadharDetails a;
 // 	// p1->setId(1234);
@@ -176,7 +189,7 @@ long Person::getAadharId()
 // 	p1.setAge(21);
 // 	p1.setGender('M');
 // 	p1.setDb(date);
-// 	p1.setAddress(addr);
+// 	p1.setAddr(addr);
 // 	a.verify(1);
 // 	// p1.getPersonDetails();
 // 	p1.displayPersonalDetails();

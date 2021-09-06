@@ -1,18 +1,61 @@
+//file contains election functions
 #include "Election.h"
 #include "ElectionCommision.h"
 #include <iostream>
+#include <sqlite3.h>
+#include <sstream>
 using namespace std;
+
+extern sqlite3 *db;
+int electionCount = 1;
+int callback(void *data, int argc, char **argv, char **azColName);
 
 extern ElectionCommision e;
 
-Election::Election()
+Election::Election() {}
+Election::Election(int id, string name)
 {
-	electionStatus = false;
+	this->electionId = id;
+	this->electionName = name;
+	this->electionStatus = false;
+
+	electionCount = id + 1;
+	sqlite3_stmt *stmt;
+	char *zErrMsg = 0;
+	int rc, rc2;
+	const char *sql, *sql2;
+	const char *data = "Callback function called";
+	int callback(void *data, int argc, char **argv, char **azColName);
+	stringstream ss;
+	string query;
+
+	ss << "select stateid  from election where electionid= " << electionId;
+	query = ss.str();
+	sql = query.c_str();
+
+	rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		// fprintf("error: ", sqlite3_errmsg(sqlite3->db));
+	}
+	int count = 0;
+	while ((rc = sqlite3_step(stmt)) == SQLITE_ROW)
+	{
+		int stateId = sqlite3_column_int(stmt, 0);
+		this->stateIds.push_back(stateId);
+	}
+	if (rc != SQLITE_DONE)
+	{
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		// fprintf("error: ", sqlite3_errmsg(db));
+	}
+	sqlite3_finalize(stmt);
 }
 
 void Election::acceptElectionDetails()
 {
-	cout<<"\n**************Accepting Election Details*************"<<endl;
+	cout << "\n**************Accepting Election Details*************" << endl;
 	int no;
 	cout << "Enter Election Name" << endl;
 	cin >> electionName;
