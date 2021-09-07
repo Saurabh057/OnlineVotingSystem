@@ -117,7 +117,7 @@ void adminFuntions()
         e.showOngoingElectionDetails();
         break;
     case 3:
-        e.showOngoingElectionDetails();
+        e.showStates();
         break;
     case 4:
         return ;

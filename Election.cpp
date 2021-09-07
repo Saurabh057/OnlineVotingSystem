@@ -55,18 +55,46 @@ Election::Election(int id, string name)
 
 void Election::acceptElectionDetails()
 {
+
+	int inputStateId;
+
 	cout << "\n**************Accepting Election Details*************" << endl;
 	int no;
 	cout << "Enter Election Name" << endl;
 	cin >> electionName;
 	cout << "Enter No of States in which you want to conduct Election" << endl;
 	cin >> no;
-	int temp;
+	
 	for (int i = 0; i < no; i++)
 	{
+		char *zErrMsg = 0;
+		int rc;
+		const char *sql;
+		const char *data = "Callback function called";
+		stringstream ss, ss2;
+		string query, query2;
 		cout << "Enter State Id of State" << endl;
-		cin >> temp;
-		stateIds.push_back(temp);
+		cin >> inputStateId;
+		stateIds.push_back(inputStateId);
+
+		ss << "INSERT INTO election "
+			  "VALUES (null,' "
+		    <<electionCount<< "','" << electionName << "','" << inputStateId << "','" << 0 <<  "')";
+
+		query = ss.str();
+		sql = query.c_str();
+
+		rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+		if (rc != SQLITE_OK)
+		{
+			fprintf(stderr, "SQL error: %s\n", zErrMsg);
+			sqlite3_free(zErrMsg);
+		}
+		else
+		{
+			fprintf(stdout, "Election Record inserted successfully\n");
+		}
 	}
 }
 
