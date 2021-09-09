@@ -108,6 +108,11 @@ int Candidate::getAssemblyId()
 
     return this->assemblyId;
 }
+
+std::string Candidate::getPartyName(){
+    return this->partyName;
+}
+
 /*
 
 

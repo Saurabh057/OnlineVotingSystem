@@ -22,8 +22,12 @@ int callback(void *data, int argc, char **argv, char **azColName)
     return 0;
 }
 void adminFuntions();
-Voter *voterLogin(string username, string password);
 void voterFunctions();
+void candidateFunctions();
+
+Voter *voterLogin(string username, string password);
+Candidate *candidateLogin(string username, string password);
+
 int rc = sqlite3_open("test.db", &db);
 ElectionCommision e;
 
@@ -79,7 +83,7 @@ int main()
     do {
         cout << "\nWho are you ?\n1.Admin\n2.Voter\n3.Candidate\n"
             << endl;
-        cin >> ch;
+            cin >> ch;
 
         switch (ch)
         {
@@ -90,7 +94,7 @@ int main()
             voterFunctions();
             break;
         case 3:
-            voterFunctions();
+            candidateFunctions();
             break;
         case 4:
             return 0;
@@ -176,6 +180,34 @@ void voterFunctions()
     }
 }
 
+void candidateFunctions(){
+
+    Candidate* c;
+    std::string username;
+    std::string password;
+
+    cout << "\nEnter Username" << endl;
+    cin >> username;
+    cout << "\nEnter Password" << endl;
+    cin >> password;
+    c = candidateLogin(username, password);
+    if (c != NULL)
+    {   
+        std::cout<<"\n**********Candidate Details************"<<std::endl;
+        std::cout<<"Welcome !\nThese Are Your Details :-"<<std::endl;
+        std::cout<<"Role\t\t: Candidate"<<std::endl;
+        std::cout<<"Candidate Id \t:   "<<c->getCandidateId()<<std::endl;
+        std::cout<<"Assembly Id \t:   "<<c->getAssemblyId()<<std::endl;
+        std::cout<<"State Id \t:   "<<c->getStateId()<<std::endl;
+        std::cout<<"Election ID \t:   "<<c->getElectionId()<<std::endl;
+        std::cout<<"Party Name \t:   "<<c->getPartyName()<<std::endl;
+        //std::cout<<"Election \t:   "<<(e.getElectionsList()[c->getElectionId()])->getElectionName()<<std::endl;
+        //Implement getElectionsList() for this.
+        std::cout<<"****************************************\n"<<std::endl;
+    }
+
+}
+
 Voter *voterLogin(string username, string password)
 {
     char *zErrMsg = 0;
@@ -219,4 +251,48 @@ Voter *voterLogin(string username, string password)
     sqlite3_finalize(stmt);
 
     return voterObj;
+}
+
+Candidate *candidateLogin(string username, string password)
+{
+    char *zErrMsg = 0;
+    const char *sql;
+    int rc;
+    const char *data = "Callback function called";
+    int callback(void *data, int argc, char **argv, char **azColName);
+
+    stringstream ss, ss2;
+    string query, query2;
+
+    sqlite3_stmt *stmt;
+
+    // ss2 << "select * from voter where username =   " << username;
+    //ss2 << "select * from candidate where username = 'saurabh' and password = 'pass'";
+
+    //query = ss2.str();
+
+    std::string sql2 = "select * from candidate where username ='" + username + "' and password = '" + password + "'";
+    sql = sql2.c_str();
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+
+    if (rc != SQLITE_OK)
+    {
+        fprintf(stderr, "SQL error: %s\n", zErrMsg);
+        // fprintf("error: ", sqlite3_errmsg(sqlite3->db));
+    }
+    Candidate *candidateObj = NULL;
+
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW)
+    {
+        std::cout<<"Inside While"<<std::endl;
+        int candidateid = sqlite3_column_int(stmt, 0);
+        int assemblyid = sqlite3_column_int(stmt, 3);
+        int stateid = sqlite3_column_int(stmt, 4);
+        //cout << "Voter id and assembly id" << candidateid;
+        candidateObj = e.states[stateid]->assemblyList[assemblyid]->getCandidateList()[candidateid];
+    }
+
+    sqlite3_finalize(stmt);
+    std::cout<<"After while"<<std::endl;
+    return candidateObj;
 }
