@@ -29,7 +29,7 @@ Election::Election(int id, string name)
 	stringstream ss;
 	string query;
 
-	ss << "select stateid  from election where electionid = "<<electionId;
+	ss << "select stateid  from election where electionid = " << electionId;
 	query = ss.str();
 	sql = query.c_str();
 

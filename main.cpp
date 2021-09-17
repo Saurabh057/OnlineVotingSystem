@@ -4,6 +4,7 @@
 #include "sqlite3.h"
 #include "Voter.h"
 #include <sstream>
+#include <thread>
 using namespace std;
 
 sqlite3 *db;
@@ -27,11 +28,12 @@ void voterFunctions();
 int rc = sqlite3_open("test.db", &db);
 ElectionCommision e;
 
-int main()
+void threadFun()
 {
+    cout << "Intialized thread For Intializing Maps" << this_thread::get_id() << endl;
     char *zErrMsg = 0;
     std::string sq;
-    char* sql;
+    char *sql;
     char ans; // Used during do while for menu.
     const char *data = "Callback function called";
 
@@ -46,7 +48,7 @@ int main()
     sqlite3_stmt *stmt;
 
     sq = "SELECT * FROM state";
-    sql = (char*)sq.c_str();
+    sql = (char *)sq.c_str();
 
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 
@@ -70,17 +72,28 @@ int main()
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
     }
     sqlite3_finalize(stmt);
+    cout << "Stopped thread! All Maps are Intialized" << this_thread::get_id() << endl;
+}
 
-    //e.showStates();
+int main()
+{
+
+    thread t1(threadFun); //created thread for intializing maps
+
+    char ans; // Used during do while for menu.
+
+    cout << "Intialized thread For Main Menu " << this_thread::get_id() << endl; //thread for main menu
+
     int ch;
 
     cout << "\n\n************************Online Voting System*******************************" << endl;
+    t1.join();
 
-    do {
+    do
+    {
         cout << "\nWho are you ?\n1.Admin\n2.Voter\n3.Candidate\n"
-            << endl;
+             << endl;
         cin >> ch;
-
         switch (ch)
         {
         case 1:
@@ -120,7 +133,7 @@ void adminFuntions()
         e.showOngoingElectionDetails();
         break;
     case 4:
-        return ;
+        return;
     default:
         cout << "\nInvalid Choice" << endl;
         break;
