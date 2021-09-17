@@ -34,4 +34,5 @@ public:
 	void setUsername(std::string);
 	std::string getPassword();
 	void setPassword(std::string);
+	std::string getPartyName();
 };

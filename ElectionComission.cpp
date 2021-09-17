@@ -187,7 +187,7 @@ void ElectionCommision::registerNewCandidate(Person *personObj)
 void ElectionCommision::createElection()
 {
 	Election *electionObj = new Election();
-	electionObj->setElectionId(++electionCount);
+	electionObj->setElectionId(electionCount);
 	electionObj->acceptElectionDetails();
 
 	electionsList.insert({electionObj->getElectionId(), electionObj});
