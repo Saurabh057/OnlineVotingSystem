@@ -157,9 +157,11 @@ int Assembly::findWinner()
 	}
 	if (temp.first != 0)
 	{
-		this->currentCandidateId = temp.first;
+		auto winner_details = candidateList.find(temp.first)->second;
+		cout << "The winner is " << winner_details->getUSername() << " and has won by " << temp.second << " votes." << endl;
 	}
-	return currentCandidateId;
+	else
+		return -1;
 }
 
 void Assembly::showAssemblyDetails()

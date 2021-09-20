@@ -130,7 +130,7 @@ int main()
 void adminFuntions()
 {
     int ch;
-    cout << "\n1.Create Election \n2.Show Election Details\n3 Show All States Details\n4.Back To Previous Menu" << endl;
+    cout << "\n1.Create Election \n2.Show Election Details\n3 Show All States Details\n4.End Election and find Winner\n 5.Return to previous menu" << endl;
     cin >> ch;
     switch (ch)
     {
@@ -144,7 +144,8 @@ void adminFuntions()
         e.showStates();
         break;
     case 4:
-        return;
+        return e.endElection();
+        break;
     default:
         cout << "\nInvalid Choice" << endl;
         break;
