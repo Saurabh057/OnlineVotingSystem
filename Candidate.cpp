@@ -171,3 +171,8 @@ void Candidate::setElectionId(int electionId)
 
     this->electionId = electionId;
 }
+
+void Candidate :: declare_winner()
+{
+    
+}
