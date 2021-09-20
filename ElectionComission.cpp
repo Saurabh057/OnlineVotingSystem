@@ -85,7 +85,7 @@ Voter *ElectionCommision::registerNewVoter()
 	string query, query2;
 
 	ss << "INSERT INTO voter "
-		"VALUES (null,' "
+		"VALUES (null,'"
 	   << username << "','" << password << "','" << assemblyId << "','" << stateId << "','" << personId << "','" << 0 << "')";
 	query = ss.str();
 	sql = query.c_str();
@@ -199,7 +199,7 @@ void ElectionCommision::showOngoingElectionDetails()
 	std::cout << "In ShowOngoingElectionDetails Function " << std::endl;
 	for (auto x : states[1]->assemblyList[1]->getVoterList())
 	{
-		std::cout << x.first << "\t\t" << x.second->getVoterPersonPair().second->getName() << "\t\t"<<std::endl;
+		std::cout << x.first << "\t\t" << x.second->getVoterPersonPair().second->getName() << "\t\t" << std::endl;
 		//std::cout << states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()[x.first] << endl;
 	}
 	std::cout << "\n****************Here is List of All Ongoing Elections***************" << endl;
@@ -235,7 +235,7 @@ void ElectionCommision::showOngoingElectionDetails()
 	{
 		std::cout << x.first << "\t\t\t" << x.second->getCandidatePersonPair().second->getName() << "\t\t";
 		//std::cout << states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()[x.first] << endl;
-		std::cout<< (*(states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()))[x.first]<<std::endl;
+		std::cout << (*(states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()))[x.first] << std::endl;
 	}
 }
 
@@ -291,5 +291,9 @@ map<std::string, int> ElectionCommision::getMapStateNameStateId()
 }
 
 void ElectionCommision::setMapStateNameStateId(std::string, int stateId)
+{
+}
+
+void ElectionCommision::endElection()
 {
 }
