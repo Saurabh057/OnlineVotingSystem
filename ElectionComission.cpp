@@ -197,11 +197,11 @@ void ElectionCommision::showOngoingElectionDetails()
 {
 	int inputElectionId, inputStateId, inputAssemblyId;
 	std::cout << "In ShowOngoingElectionDetails Function " << std::endl;
-	for (auto x : states[1]->assemblyList[1]->getVoterList())
-	{
-		std::cout << x.first << "\t\t" << x.second->getVoterPersonPair().second->getName() << "\t\t"<<std::endl;
-		//std::cout << states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()[x.first] << endl;
-	}
+	//for (auto x : states[1]->assemblyList[1]->getVoterList())
+	//{
+	//	std::cout << x.first << "\t\t" << x.second->getVoterPersonPair().second->getName() << "\t\t"<<std::endl;
+	//	//std::cout << states[inputStateId]->assemblyList[inputAssemblyId]->getCandidateVotesList()[x.first] << endl;
+	//}
 	std::cout << "\n****************Here is List of All Ongoing Elections***************" << endl;
 	std::cout << "\nElection Id\t\tElection Name" << endl;
 	for (auto x : electionsList)
@@ -292,4 +292,25 @@ map<std::string, int> ElectionCommision::getMapStateNameStateId()
 
 void ElectionCommision::setMapStateNameStateId(std::string, int stateId)
 {
+}
+
+
+void ElectionCommision::endElection()
+{
+	int inputElectionId;
+	std::cout << "\nElection Id\t\tElection Name" << endl;
+	for (auto x : electionsList)
+	{
+		std::cout << x.first << "\t\t" << x.second->getElectionName() << endl;
+	}
+	cout << "Enter Id to stop: ";
+	cin >> inputElectionId;
+
+	for (auto x : electionsList[inputElectionId]->getstateIds())
+	{
+		for (auto y : states[x]->assemblyList)
+		{
+			std::cout <<  y.second->findWinner() << endl;
+		}
+	}
 }
