@@ -35,4 +35,5 @@ public:
 	std::string getPassword();
 	void setPassword(std::string);
 	std::string getPartyName();
+	~Candidate();
 };

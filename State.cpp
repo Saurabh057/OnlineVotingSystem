@@ -106,3 +106,9 @@ map<std::string, int> State::getAssemblyNameAssemblyId()
 void State::setAssmblyNameAssemblyId(std::string, int)
 {
 }
+
+State::~State()
+{
+	for (auto x : assemblyList)
+		delete x.second;
+}

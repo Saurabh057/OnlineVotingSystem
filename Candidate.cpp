@@ -109,7 +109,8 @@ int Candidate::getAssemblyId()
     return this->assemblyId;
 }
 
-std::string Candidate::getPartyName(){
+std::string Candidate::getPartyName()
+{
     return this->partyName;
 }
 
@@ -175,4 +176,9 @@ void Candidate::setElectionId(int electionId)
 {
 
     this->electionId = electionId;
+}
+
+Candidate::~Candidate()
+{
+    delete personalDetails.second;
 }

@@ -206,3 +206,12 @@ void Assembly::setCandidateVotesList(int candidateId, int votes)
 {
 	candidateVotes[candidateId] = votes;
 }
+
+Assembly::~Assembly()
+{
+	for (auto x : voterList)
+		delete x.second;
+
+	for (auto x : candidateList)
+		delete x.second;
+}

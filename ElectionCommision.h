@@ -22,7 +22,7 @@ public:
 	map<int, State *> states; //map of stateId and State *
 	//map<int, State *> states;
 	ElectionCommision();
-	// ~ElectionCommision();
+	~ElectionCommision();
 	Voter *registerNewVoter();
 	void assignStateId(Person *personObj, pair<int, int> &pairStateIdAsmId);
 	void registerNewCandidate(Person *person);

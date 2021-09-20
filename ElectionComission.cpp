@@ -297,3 +297,11 @@ void ElectionCommision::setMapStateNameStateId(std::string, int stateId)
 void ElectionCommision::endElection()
 {
 }
+
+ElectionCommision::~ElectionCommision()
+{
+	for (auto x : electionsList)
+		delete x.second;
+	for (auto x : states)
+		delete x.second;
+}

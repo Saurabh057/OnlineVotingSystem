@@ -171,3 +171,9 @@ void Voter::registerAsCandidate()
 {
     e.registerNewCandidate(this->personalDetails.second);
 }
+
+Voter::~Voter()
+{
+
+    delete personalDetails.second;
+}
