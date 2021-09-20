@@ -5,6 +5,7 @@
 #include "Voter.h"
 #include <sstream>
 #include <thread>
+#include <mutex>
 using namespace std;
 
 sqlite3 *db;
@@ -31,9 +32,10 @@ Candidate *candidateLogin(string username, string password);
 
 int rc = sqlite3_open("test.db", &db);
 ElectionCommision e;
-
+std::mutex m;
 void threadFun()
 {
+    m.lock();
     cout << "Intialized thread For Intializing Maps" << this_thread::get_id() << endl;
     char *zErrMsg = 0;
     std::string sq;
@@ -44,6 +46,7 @@ void threadFun()
     if (rc)
     {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        return;
     }
     else
     {
@@ -77,21 +80,24 @@ void threadFun()
     }
     sqlite3_finalize(stmt);
     cout << "Stopped thread! All Maps are Intialized" << this_thread::get_id() << endl;
+    m.unlock();
 }
 
 int main()
 {
 
     thread t1(threadFun); //created thread for intializing maps
+    // thread t2(threadFun); //thread to show mutex lock
 
     char ans; // Used during do while for menu.
 
-    cout << "Intialized thread For Main Menu " << this_thread::get_id() << endl; //thread for main menu
+    // cout << "Intialized thread For Main Menu " << this_thread::get_id() << endl; //thread for main menu
 
     int ch;
 
     cout << "\n\n************************Online Voting System*******************************" << endl;
     t1.join();
+    // t2.join();
 
     do
     {
